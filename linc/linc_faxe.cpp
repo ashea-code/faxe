@@ -55,7 +55,7 @@ namespace linc
 
 			// All OK - Setup some channels to work with!
 			fmodSoundSystem->init(numChannels, FMOD_INIT_NORMAL, NULL);
-			printf("FMOD Sound System Started with %d channels", numChannels);
+			printf("FMOD Sound System Started with %d channels!", numChannels);
 		}
 	} // faxe + fmod namespace
 } // linc namespace
