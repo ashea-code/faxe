@@ -41,7 +41,7 @@ namespace linc
 		FMOD::System *fmodSoundSystem;
 		
 		//// Baisc FMOD operations
-		extern void faxe_init();
+		extern void faxe_init(int numChannels);
 		extern void faxe_update();
 		extern void faxe_shutdown();
 

@@ -31,7 +31,7 @@ namespace linc
 {
 	namespace faxe
 	{
-		void faxe_init()
+		void faxe_init(int numChannels)
 		{
 			// Create our new fmod system
 			if (FMOD::System_Create(&fmodSoundSystem) != FMOD_OK)
@@ -51,7 +51,7 @@ namespace linc
 			}
 
 			// All OK - Setup some channels to work with!
-			fmodSoundSystem->init(36, FMOD_INIT_NORMAL, NULL);
+			fmodSoundSystem->init(numChannels, FMOD_INIT_NORMAL, NULL);
 		}
 	} // faxe + fmod namespace
 } // linc namespace
