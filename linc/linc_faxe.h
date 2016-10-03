@@ -28,7 +28,6 @@
 #define IMPLEMENT_API
 
 #include <hxcpp.h>
-#include <fmod.hpp>
 
 #if (defined __MWERKS__)
 	#include <SIOUX.h>
@@ -38,8 +37,6 @@ namespace linc
 {
 	namespace faxe
 	{
-		FMOD::System *fmodSoundSystem;
-		
 		//// Baisc FMOD operations
 		extern void faxe_init(int numChannels);
 		extern void faxe_update();

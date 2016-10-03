@@ -7,5 +7,6 @@ package faxe;
 
 extern class Faxe
 {
-
+	@:native("linc::faxe::faxe_init")
+	public static function fmod_init(numChannels:Int = 128):Void;
 }

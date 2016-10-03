@@ -3,7 +3,7 @@
 	<set name="NATIVE_TOOLKIT_PATH" value="${LINC_FAXE_PATH}/lib/" />
 
 	<files id='haxe'>
-		<compilerflag value='-I${LINC_FAXE_PATH}linc/linc_faxe.h'/>
+		<compilerflag value='-I${LINC_FAXE_PATH}linc/'/>
 		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/lowlevel/inc/"/>
 
 		<file name='${LINC_FAXE_PATH}/linc/linc_faxe.cpp' />

@@ -25,12 +25,15 @@
 */
 
 #include <hxcpp.h>
+#include <fmod.hpp>
 #include "linc_faxe.h"
 
 namespace linc 
 {
 	namespace faxe
 	{
+		FMOD::System *fmodSoundSystem;
+
 		void faxe_init(int numChannels)
 		{
 			// Create our new fmod system
@@ -52,6 +55,7 @@ namespace linc
 
 			// All OK - Setup some channels to work with!
 			fmodSoundSystem->init(numChannels, FMOD_INIT_NORMAL, NULL);
+			printf("FMOD Sound System Started with %d channels", numChannels);
 		}
 	} // faxe + fmod namespace
 } // linc namespace
