@@ -5,6 +5,7 @@
 	<files id='haxe'>
 		<compilerflag value='-I${LINC_FAXE_PATH}linc/'/>
 		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/lowlevel/inc/"/>
+		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/studio/inc/"/>
 
 		<file name='${LINC_FAXE_PATH}/linc/linc_faxe.cpp' />
 	</files>
@@ -13,7 +14,7 @@
 
 		<section if="windows">
 			<lib name="${NATIVE_TOOLKIT_PATH}/api/lowlevel/lib/fmod_vc.lib" />
-			<lib name="${NATIVE_TOOLKIT_PATH}/api/lowlevel/lib/fmod64_vc.lib" />
+			<lib name="${NATIVE_TOOLKIT_PATH}/api/studio/lib/fmodstudio_vc.lib" />
 		</section>
 
 	</target>

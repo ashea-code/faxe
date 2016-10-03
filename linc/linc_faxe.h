@@ -38,24 +38,47 @@ namespace linc
 	namespace faxe
 	{
 		//// Baisc FMOD operations
-		extern void faxe_init(int numChannels);
-		extern void faxe_update();
+
+		/**
+		 * Initialization of FMOD sound system
+		 * \param[numChannels] number of channels to allocate for this sound system
+		 */
+		extern void faxe_init(int numChannels = 32);
+
+		/**
+		 * Clean up allocated objects from the FMOD sound system
+		 */
 		extern void faxe_shutdown();
 
 		//// Sound + Bank operations
-		extern void faxe_load_bank(const std::string& bankName);
-		extern void faxe_load_sound(const std::string& sndName, bool looping = false, bool streaming = false);
-		extern void faxe_unload_sound(const std::string& sndName);
 
-		// Event operations
-		extern void faxe_load_event(const std::string& eventName);
-		extern void faxe_play_event(const std::string& eventName);
-		extern void faxe_stop_event(const std::string& eventName, bool forceStop = false);
-		extern bool faxe_event_playing(const std::string& eventName);
-		extern float faxe_get_event_param(const std::string& eventName, const std::string& paramName);
-		extern void faxe_set_event_param(const std::string& eventName, const std::string& paramName, float sValue);
+		/**
+		 * Load a FMOD sound bank file
+		 * \param[bankName] ::String the file path of the sound bank to load
+		 */
+		extern void faxe_load_bank(const ::String& bankName);
 
-		// Channel operations
+		/**
+		 * Load an arbitrary sound into FMOD
+		 * \param[sndName] ::String the file path of the sound to load
+		 */
+		extern void faxe_load_sound(const ::String& sndName, bool looping = false, bool streaming = false);
+
+		/**
+		 * Unload a sound from FMOD
+		 * \param[sndName] ::String the file path of the sound to unload
+		 */
+		extern void faxe_unload_sound(const ::String& sndName);
+
+		//// Event operations
+		extern void faxe_load_event(const ::String& eventName);
+		extern void faxe_play_event(const ::String& eventName);
+		extern void faxe_stop_event(const ::String& eventName, bool forceStop = false);
+		extern bool faxe_event_playing(const ::String& eventName);
+		extern float faxe_get_event_param(const ::String& eventName, const ::String& paramName);
+		extern void faxe_set_event_param(const ::String& eventName, const ::String& paramName, float sValue);
+
+		//// Channel operations
 		extern void faxe_stop_all_channels();
 		extern void faxe_stop_channel(int channelID);
 		extern void faxe_set_channel_gain(int channelID, float gainDb);

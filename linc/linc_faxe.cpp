@@ -25,37 +25,58 @@
 */
 
 #include <hxcpp.h>
-#include <fmod.hpp>
+#include <fmod_studio.hpp>
+#include <fmod_errors.h>
+#include <map>
+
 #include "linc_faxe.h"
 
 namespace linc 
 {
 	namespace faxe
 	{
-		FMOD::System *fmodSoundSystem;
+		// FMOD Sound System
+		FMOD::Studio::System *fmodSoundSystem;
 
+		// Maps to track what has been loaded already
+		std::map<::String, FMOD::Studio::Bank*> loadedBanks;
+
+		//// FMOD Init
 		void faxe_init(int numChannels)
 		{
 			// Create our new fmod system
-			if (FMOD::System_Create(&fmodSoundSystem) != FMOD_OK)
+			if (FMOD::Studio::System::create(&fmodSoundSystem) != FMOD_OK)
 			{
 				printf("Failure starting FMOD sound system!");
-				return;
-			}
-
-			int numDrivers = 0;
-			fmodSoundSystem->getNumDrivers(&numDrivers);
-
-			if (numDrivers == 0)
-			{
-				printf("Failure starting FMOD sound system!");
-				printf("FMOD could not find any sound drivers!");
 				return;
 			}
 
 			// All OK - Setup some channels to work with!
-			fmodSoundSystem->init(numChannels, FMOD_INIT_NORMAL, NULL);
-			printf("FMOD Sound System Started with %d channels!", numChannels);
+			fmodSoundSystem->initialize(numChannels, NULL, NULL, nullptr);
+			printf("FMOD Sound System Started with %d channels!\n", numChannels);
 		}
+
+		//// Sound Banks
+		void faxe_load_bank(const ::String& bankName)
+		{
+			// Ensure this isn't already loaded
+			if (loadedBanks.find(bankName) != loadedBanks.end())
+			{
+				return;
+			}
+
+			// Try and load the bank file
+			FMOD::Studio::Bank* tempBank;
+			auto result = fmodSoundSystem->loadBankFile(bankName.c_str(), NULL, &tempBank);
+			if (result != FMOD_OK)
+			{
+				printf("FMOD failed to LOAD sound bank %s with error %s\n", bankName.c_str(), FMOD_ErrorString(result));
+				return;
+			}
+
+			// List is as loaded
+			loadedBanks[bankName] = tempBank;
+		}
+
 	} // faxe + fmod namespace
 } // linc namespace
