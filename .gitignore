@@ -1,0 +1,4 @@
+lib/api/*
+lib/bin/*
+lib/doc/*
+test/cpp

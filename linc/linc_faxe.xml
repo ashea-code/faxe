@@ -1,0 +1,34 @@
+<xml>
+
+	<set name="NATIVE_TOOLKIT_PATH" value="${LINC_FAXE_PATH}/lib/" />
+
+	<files id='haxe'>
+		<compilerflag value='-I${LINC_FAXE_PATH}linc/linc_faxe.h'/>
+		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/lowlevel/inc/"/>
+
+		<file name='${LINC_FAXE_PATH}/linc/linc_faxe.cpp' />
+	</files>
+
+	<target id="haxe">
+
+		<section if="windows">
+<!-- 			<lib name="gdi32.lib" />
+			<lib name="opengl32.lib" />
+			<lib name="user32.lib" />
+			<lib name="kernel32.lib" />
+			<lib name="advapi32.lib" />
+			<lib name="winmm.lib" />
+			<lib name="imm32.lib"  />
+			<lib name="ole32.lib" />
+			<lib name="oleaut32.lib" />
+			<lib name="version.lib" />
+			<lib name="ws2_32.lib"  />
+			<lib name="wldap32.lib" />
+			<lib name="shell32.lib" />
+			<lib name="comdlg32.lib" /> -->
+			<lib name="${NATIVE_TOOLKIT_PATH}/api/lowlevel/lib/fmod_vc.lib" />
+		</section>
+
+	</target>
+
+</xml>
