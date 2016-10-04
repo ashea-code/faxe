@@ -59,6 +59,12 @@ namespace linc
 		extern void faxe_load_bank(const ::String& bankName);
 
 		/**
+		 * Unload a FMOD sound bank file
+		 * \param[bankName] ::String the file path of the sound bank to unload
+		 */
+		extern void faxe_unload_bank(const ::String& bankName);
+
+		/**
 		 * Load an arbitrary sound into FMOD
 		 * \param[sndName] ::String the file path of the sound to load
 		 */

@@ -78,5 +78,16 @@ namespace linc
 			loadedBanks[bankName] = tempBank;
 		}
 
+		void faxe_unload_bank(const ::String& bankName)
+		{
+			// Ensure this bank exists
+			auto found = loadedBanks.find(bankName);
+			if (found != loadedBanks.end())
+			{
+				// Unload the bank that matches
+				found->second->unload();
+			}
+		}
+
 	} // faxe + fmod namespace
 } // linc namespace
