@@ -27,8 +27,6 @@
 
 #define IMPLEMENT_API
 
-#include <hxcpp.h>
-
 #if (defined __MWERKS__)
 	#include <SIOUX.h>
 #endif

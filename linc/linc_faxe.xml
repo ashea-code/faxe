@@ -2,12 +2,15 @@
 
 	<set name="NATIVE_TOOLKIT_PATH" value="${LINC_FAXE_PATH}/lib/" />
 
-	<files id='haxe'>
-		<compilerflag value='-I${LINC_FAXE_PATH}linc/'/>
-		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/lowlevel/inc/"/>
-		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/studio/inc/"/>
+	<echo value="Found your FMOD API!" ifExists="${NATIVE_TOOLKIT_PATH}/api/" />
 
-		<file name='${LINC_FAXE_PATH}/linc/linc_faxe.cpp' />
+	<files id="haxe">
+		<compilerflag value="-I${LINC_FAXE_PATH}linc/" />
+		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/lowlevel/inc/" />
+		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/api/studio/inc/" />
+		<compilerflag value="-std=c++11" if="linux" />
+		<compilerflag value="-Wl,-rpath,$ORIGIN" if="linux" />
+		<file name="${LINC_FAXE_PATH}/linc/linc_faxe.cpp" />
 	</files>
 
 	<target id="haxe">
@@ -15,6 +18,16 @@
 		<section if="windows">
 			<lib name="${NATIVE_TOOLKIT_PATH}/api/lowlevel/lib/fmod_vc.lib" />
 			<lib name="${NATIVE_TOOLKIT_PATH}/api/studio/lib/fmodstudio_vc.lib" />
+		</section>
+
+		<section if="linux HXCPP_M32">
+			<lib name="${NATIVE_TOOLKIT_PATH}/api/lowlevel/lib/x86/libfmod.so" />
+			<lib name="${NATIVE_TOOLKIT_PATH}/api/studio/lib/x86/libfmodstudio.so" />
+		</section>
+
+		<section if="linux HXCPP_M64">
+			<lib name="${NATIVE_TOOLKIT_PATH}/api/lowlevel/lib/x86_64/libfmod.so" />
+			<lib name="${NATIVE_TOOLKIT_PATH}/api/studio/lib/x86_64/libfmodstudio.so" />
 		</section>
 
 	</target>
