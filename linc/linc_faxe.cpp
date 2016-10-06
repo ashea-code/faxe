@@ -36,10 +36,12 @@ namespace linc
 	namespace faxe
 	{
 		// FMOD Sound System
-		FMOD::Studio::System *fmodSoundSystem;
+		FMOD::Studio::System* fmodSoundSystem;
+		FMOD::System* fmodLowLevelSoundSystem;
 
 		// Maps to track what has been loaded already
 		std::map<::String, FMOD::Studio::Bank*> loadedBanks;
+		std::map<::String, FMOD::Sound*> loadedSounds;
 
 		//// FMOD Init
 		void faxe_init(int numChannels)
@@ -53,6 +55,7 @@ namespace linc
 
 			// All OK - Setup some channels to work with!
 			fmodSoundSystem->initialize(numChannels, NULL, NULL, nullptr);
+			fmodSoundSystem->getLowLevelSystem(&fmodLowLevelSoundSystem);
 			printf("FMOD Sound System Started with %d channels!\n", numChannels);
 		}
 
@@ -84,8 +87,60 @@ namespace linc
 			auto found = loadedBanks.find(bankName);
 			if (found != loadedBanks.end())
 			{
+				// Remove from loaded banks map
+				loadedBanks.erase(bankName);
+
 				// Unload the bank that matches
 				found->second->unload();
+			}
+		}
+
+		void faxe_load_sound(const ::String& sndName, bool looping, bool streaming)
+		{
+			// Ensure the sound has not already been loaded
+			if (loadedSounds.find(sndName) != loadedSounds.end())
+			{
+				return;
+			}
+
+			// Determine the loading mode based on boolean params
+			FMOD_MODE loadSndMode = FMOD_DEFAULT;
+
+			if (looping)
+			{
+				loadSndMode |= FMOD_LOOP_NORMAL;
+			}
+
+			if (streaming)
+			{
+				loadSndMode |= FMOD_CREATESTREAM;
+			}
+
+			// Try and load this sound
+			FMOD::Sound* tempSound;
+			auto result = fmodLowLevelSoundSystem->createSound(sndName.c_str(), loadSndMode, nullptr, &tempSound);
+			if (result != FMOD_OK)
+			{
+				printf("FMOD failed to LOAD sound %s with error %s\n", sndName.c_str(), FMOD_ErrorString(result));
+				return;
+			}
+
+			// Store in loaded sounds map
+			loadedSounds[sndName] = tempSound;
+		}
+
+		void faxe_unload_sound(const ::String& sndName)
+		{
+			auto found = loadedSounds.find(sndName);
+
+			// Ensure the sound has already been loaded
+			if (found != loadedSounds.end())
+			{
+				// Remove from loaded map
+				loadedSounds.erase(sndName);
+
+				// Unload the sound
+				found->second->release();
 			}
 		}
 
