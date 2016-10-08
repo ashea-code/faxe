@@ -75,7 +75,13 @@ namespace linc
 		extern void faxe_unload_sound(const ::String& sndName);
 
 		//// Event operations
+
+		/**
+		 * Load an event from a loaded bank
+		 * \param[sndName] ::String the name of the event to load into memory
+		 */
 		extern void faxe_load_event(const ::String& eventName);
+
 		extern void faxe_play_event(const ::String& eventName);
 		extern void faxe_stop_event(const ::String& eventName, bool forceStop = false);
 		extern bool faxe_event_playing(const ::String& eventName);

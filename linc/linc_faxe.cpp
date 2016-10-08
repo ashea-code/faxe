@@ -42,6 +42,7 @@ namespace linc
 		// Maps to track what has been loaded already
 		std::map<::String, FMOD::Studio::Bank*> loadedBanks;
 		std::map<::String, FMOD::Sound*> loadedSounds;
+		std::map<::String, FMOD::Studio::EventInstance*> loadedEvents;
 
 		//// FMOD Init
 		void faxe_init(int numChannels)
@@ -142,6 +143,38 @@ namespace linc
 				// Unload the sound
 				found->second->release();
 			}
+		}
+
+		void faxe_load_event(const ::String& eventName)
+		{
+			// Check it's not already loaded
+			if (loadedEvents.find(eventName) != loadedEvents.end())
+			{
+				return;
+			}
+
+			// Try and load this event description
+			FMOD::Studio::EventDescription* tempEvnDesc;
+			auto result = fmodSoundSystem->getEvent(eventName.c_str(), &tempEvnDesc);
+
+			if (result != FMOD_OK)
+			{
+				printf("FMOD failed to LOAD event instance %s with error %s\n", eventName.c_str(), FMOD_ErrorString(result));
+				return;
+			}
+
+			// Now create an instance of this event that we can keep in memory
+			FMOD::Studio::EventInstance* tempEvnInst;
+			result = tempEvnDesc->createInstance(&tempEvnInst);
+
+			if (result != FMOD_OK)
+			{
+				printf("FMOD failed to CREATE INSTANCE of event instance %s with error %s\n", eventName.c_str(), FMOD_ErrorString(result));
+				return;
+			}
+
+			// Store in event map
+			loadedEvents[eventName] = tempEvnInst;
 		}
 
 	} // faxe + fmod namespace

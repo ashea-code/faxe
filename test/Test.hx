@@ -5,6 +5,6 @@ class Test
 	static function main()
 	{
 		Faxe.fmod_init(36);
-		Faxe.fmod_load_bank("test.bank");
+		Faxe.fmod_load_event("testEvent");
 	}
 }
