@@ -87,8 +87,20 @@ namespace linc
 		 */
 		extern void faxe_load_event(const ::String& eventName);
 
+
+		/**
+		 * Play an already loaded event
+		 * \param[sndName] ::String the name of the event to play
+		 */
 		extern void faxe_play_event(const ::String& eventName);
+
+		/**
+		 * Play an already loaded event
+		 * \param[sndName] ::String the name of the event to play
+		 * \param[forceStop] ::Bool should we force the event to stop immediately?
+		 */
 		extern void faxe_stop_event(const ::String& eventName, bool forceStop = false);
+
 		extern bool faxe_event_playing(const ::String& eventName);
 		extern float faxe_get_event_param(const ::String& eventName, const ::String& paramName);
 		extern void faxe_set_event_param(const ::String& eventName, const ::String& paramName, float sValue);

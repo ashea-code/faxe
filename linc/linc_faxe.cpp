@@ -160,6 +160,7 @@ namespace linc
 
 			// Try and load this event description
 			FMOD::Studio::EventDescription* tempEvnDesc;
+
 			auto result = fmodSoundSystem->getEvent(eventName.c_str(), &tempEvnDesc);
 
 			if (result != FMOD_OK)
@@ -180,6 +181,42 @@ namespace linc
 
 			// Store in event map
 			loadedEvents[eventName] = tempEvnInst;
+		}
+
+		void faxe_play_event(const ::String& eventName)
+		{
+			// Ensure that the event is loaded first
+			auto targetEvent = loadedEvents.find(eventName);
+			if (targetEvent != loadedEvents.end())
+			{
+				// Start the event instance
+				targetEvent->second->start();
+			} else {
+				printf("Event %s is not loaded!\n", eventName.c_str());
+			}
+		}
+
+		void faxe_stop_event(const ::String& eventName, bool forceStop)
+		{
+			// Find the event first
+			auto targetStopEvent = loadedEvents.find(eventName);
+			if (targetStopEvent != loadedEvents.end())
+			{
+				FMOD_STUDIO_STOP_MODE stopMode;
+
+				if (forceStop)
+				{
+					stopMode = FMOD_STUDIO_STOP_IMMEDIATE;
+				} else {
+					stopMode = FMOD_STUDIO_STOP_ALLOWFADEOUT;
+				}
+
+				// Stop the event
+				targetStopEvent->second->stop(stopMode);
+
+			} else {
+				printf("Event %s is not loaded!\n", eventName.c_str());
+			}
 		}
 
 	} // faxe + fmod namespace
