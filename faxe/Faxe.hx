@@ -10,6 +10,9 @@ extern class Faxe
 	@:native("linc::faxe::faxe_init")
 	public static function fmod_init(numChannels:Int = 128):Void;
 
+	@:native("linc::faxe::faxe_update")
+	public static function fmod_update():Void;
+
 	@:native("linc::faxe::faxe_load_bank")
 	public static function fmod_load_bank(bankFilePath:String):Void;
 

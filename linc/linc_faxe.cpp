@@ -55,9 +55,14 @@ namespace linc
 			}
 
 			// All OK - Setup some channels to work with!
-			fmodSoundSystem->initialize(numChannels, NULL, NULL, nullptr);
+			fmodSoundSystem->initialize(numChannels, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr);
 			fmodSoundSystem->getLowLevelSystem(&fmodLowLevelSoundSystem);
 			printf("FMOD Sound System Started with %d channels!\n", numChannels);
+		}
+
+		void faxe_update()
+		{
+			fmodSoundSystem->update();
 		}
 
 		//// Sound Banks
@@ -71,7 +76,7 @@ namespace linc
 
 			// Try and load the bank file
 			FMOD::Studio::Bank* tempBank;
-			auto result = fmodSoundSystem->loadBankFile(bankName.c_str(), NULL, &tempBank);
+			auto result = fmodSoundSystem->loadBankFile(bankName.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &tempBank);
 			if (result != FMOD_OK)
 			{
 				printf("FMOD failed to LOAD sound bank %s with error %s\n", bankName.c_str(), FMOD_ErrorString(result));
