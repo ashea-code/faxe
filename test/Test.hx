@@ -20,6 +20,7 @@ class Test
 		// Bad little forever loop to pump FMOD commands
 		while (true)
 		{
+			trace("event:/testEvent is playing: " + Faxe.fmod_event_is_playing("event:/testEvent"));
 			Faxe.fmod_update();
 		}
 	}

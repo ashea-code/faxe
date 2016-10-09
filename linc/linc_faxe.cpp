@@ -219,5 +219,27 @@ namespace linc
 			}
 		}
 
+		bool faxe_event_playing(const ::String& eventName)
+		{
+			auto targetEvent = loadedEvents.find(eventName);
+			if (targetEvent != loadedEvents.end())
+			{
+				// Check the playback state of this event
+				FMOD_STUDIO_PLAYBACK_STATE currentState;
+				auto result = targetEvent->second->getPlaybackState(&currentState);
+
+				if (result != FMOD_OK)
+				{
+					printf("FMOD failed to GET PLAYBACK STATUS of event instance %s with error %s\n", eventName.c_str(), FMOD_ErrorString(result));
+					return false;
+				}
+
+				return (currentState == FMOD_STUDIO_PLAYBACK_PLAYING);
+			} else {
+				printf("Event %s is not loaded!\n", eventName.c_str());
+				return false;
+			}
+		}
+
 	} // faxe + fmod namespace
 } // linc namespace
