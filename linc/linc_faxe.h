@@ -83,20 +83,20 @@ namespace linc
 
 		/**
 		 * Load an event from a loaded bank
-		 * \param[sndName] ::String the name of the event to load into memory
+		 * \param[eventName] ::String the name of the event to load into memory
 		 */
 		extern void faxe_load_event(const ::String& eventName);
 
 
 		/**
 		 * Play an already loaded event
-		 * \param[sndName] ::String the name of the event to play
+		 * \param[eventName] ::String the name of the event to play
 		 */
 		extern void faxe_play_event(const ::String& eventName);
 
 		/**
 		 * Play an already loaded event
-		 * \param[sndName] ::String the name of the event to play
+		 * \param[eventName] ::String the name of the event to play
 		 * \param[forceStop] ::Bool should we force the event to stop immediately?
 		 */
 		extern void faxe_stop_event(const ::String& eventName, bool forceStop = false);
@@ -104,12 +104,25 @@ namespace linc
 
 		/**
 		 * Check to see if an event is currently playing
-		 * \param[sndName] ::String the name of the event to check playing status of
+		 * \param[eventName] ::String the name of the event to check playing status of
 		 * \return ::Bool if the event is currently playing
 		 */
 		extern bool faxe_event_playing(const ::String& eventName);
 
+		/**
+		 * Check to see if an event is currently playing
+		 * \param[eventName] ::String the name of the event to get param value from
+		 * \param[paramName] ::String the name of the param to GET
+		 * \return float the current value of the param from the specified event
+		 */
 		extern float faxe_get_event_param(const ::String& eventName, const ::String& paramName);
+
+		/**
+		 * Set the parameter value of a loaded event
+		 * \param[eventName] ::String the name of the event that contains the parameter to set
+		 * \param[paramName] ::String the name of the param to SET
+		 * \param[sValue] float the new value to set the param to
+		 */
 		extern void faxe_set_event_param(const ::String& eventName, const ::String& paramName, float sValue);
 
 		//// Channel operations

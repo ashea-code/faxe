@@ -241,5 +241,43 @@ namespace linc
 			}
 		}
 
+		float faxe_get_event_param(const ::String& eventName, const ::String& paramName)
+		{
+			auto targetEvent = loadedEvents.find(eventName);
+			if (targetEvent != loadedEvents.end())
+			{
+				// Try and get the float param from EventInstance
+				float currentValue;
+				auto result = targetEvent->second->getParameterValue(paramName.c_str(), &currentValue);
+
+				if (result != FMOD_OK)
+				{
+					printf("FMOD failed to GET PARAM %s of event instance %s with error %s\n", paramName.c_str(), eventName.c_str(), FMOD_ErrorString(result));
+					return -1;
+				}
+
+				return currentValue;
+			} else {
+				printf("Event %s is not loaded!\n", eventName.c_str());
+				return -1;
+			}
+		}
+
+		void faxe_set_event_param(const ::String& eventName, const ::String& paramName, float sValue)
+		{
+			auto targetEvent = loadedEvents.find(eventName);
+			if (targetEvent != loadedEvents.end())
+			{
+				auto result = targetEvent->second->setParameterValue(paramName.c_str(), sValue);
+
+				if (result != FMOD_OK)
+				{
+					printf("FMOD failed to SET PARAM %s of event instance %s with error %s\n", paramName.c_str(), eventName.c_str(), FMOD_ErrorString(result));
+				}
+			} else {
+				printf("Event %s is not loaded!\n", eventName.c_str());
+			}
+		}
+
 	} // faxe + fmod namespace
 } // linc namespace

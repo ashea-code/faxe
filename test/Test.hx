@@ -17,10 +17,15 @@ class Test
 		Faxe.fmod_load_event("event:/testEvent");
 		Faxe.fmod_play_event("event:/testEvent");
 
+		// Get and set an even parameter to change effect values
+		trace("Lowpass param defaults to: " + Faxe.fmod_get_param("event:/testEvent", "Lowpass"));
+		trace("Setting Lowpass param to 50.0");
+		Faxe.fmod_set_param("event:/testEvent", "Lowpass", 50.0);
+
 		// Bad little forever loop to pump FMOD commands
 		while (true)
 		{
-			trace("event:/testEvent is playing: " + Faxe.fmod_event_is_playing("event:/testEvent"));
+			// trace("event:/testEvent is playing: " + Faxe.fmod_event_is_playing("event:/testEvent"));
 			Faxe.fmod_update();
 		}
 	}
