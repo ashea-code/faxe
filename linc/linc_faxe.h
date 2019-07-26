@@ -31,6 +31,8 @@
 	#include <SIOUX.h>
 #endif
 
+#include <fmod_studio.hpp>
+
 namespace linc
 {
 	namespace faxe
@@ -43,6 +45,8 @@ namespace linc
 		 */
 		extern void faxe_init(int numChannels = 32);
 
+		extern void faxe_set_debug(bool onOff);
+		
 		/**
 		 * Update the FMOD command buffer, should be called once per "tick"
 		 */
@@ -71,7 +75,21 @@ namespace linc
 		 * Load an arbitrary sound into FMOD
 		 * \param[sndName] ::String the file path of the sound to load
 		 */
-		extern void faxe_load_sound(const ::String& sndName, bool looping = false, bool streaming = false);
+		extern FMOD_RESULT faxe_load_sound(const ::String& sndName, bool looping = false, bool streaming = false);
+		
+		extern FMOD::Sound * faxe_get_sound(const ::String& sndName);
+		
+		/**
+		 * plays a sound without further ado
+		 */
+		extern FMOD_RESULT faxe_play_sound(const ::String& sndName, bool paused = false);
+		
+		extern FMOD_RESULT faxe_play_sound_with_handle( FMOD::Sound * snd);
+		
+		/**
+		 * plays a sound without further ado and gets result channel
+		 */
+		extern FMOD::Channel * faxe_play_sound_with_channel(const ::String& sndName, bool paused);
 
 		/**
 		 * Unload a sound from FMOD
@@ -132,6 +150,8 @@ namespace linc
 		extern void faxe_set_channel_gain(int channelID, float gainDb);
 		extern void faxe_set_channel_position(int channelID, float x, float y, float z);
 		extern bool faxe_channel_playing(int channelID);
+		
+		extern FMOD::System* faxe_get_system();
 
 	} // faxe + fmod namespace
 } // linc namespace
